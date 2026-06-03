@@ -73,12 +73,3 @@
 ![Seedream 5 Lite](./seedream-5-lite.jpg)
 
 ---
-
-## Подключенные плагины
-
-Также доступно **xAI** (встроенный плагин `image_gen/xai`):
-
-| Модель | Цена |
-|--------|------|
-| **Grok Imagine Image** | Включено в подписку xAI/Grok |
-| **Grok Imagine Image (Quality)** | То же |
