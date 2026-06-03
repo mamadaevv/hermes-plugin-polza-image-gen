@@ -24,13 +24,16 @@
 ### Быстрая (через hermes plugins install)
 
 ```bash
-# 1. Установить плагин одной командой
+# 1. Установить и включить плагин
 hermes plugins install mamadaevv/hermes-plugin-polza-image-gen --enable
 
 # 2. Добавить API ключ в .env
 echo "POLZA_API_KEY=*** >> ~/.hermes/.env
 
-# 3. Готово! Следующая генерация пойдёт через Polza AI
+# 3. Сделать Polza AI провайдером для генерации картинок
+hermes config set image_gen.provider polza
+
+# 4. Готово! Можно сразу генерировать.
 ```
 
 ### Ручная
@@ -48,11 +51,13 @@ curl -Lo ~/.hermes/plugins/image_gen/polza/plugin.yaml \
 # 3. Добавить API ключ
 echo "POLZA_API_KEY=*** >> ~/.hermes/.env
 
-# 4. Включить в конфиге
+# 4. Включить в конфиге и сделать провайдером
 cat >> ~/.hermes/config.yaml << 'EOF'
 plugins:
   enabled:
     - image_gen/polza
+image_gen:
+  provider: polza
 EOF
 ```
 
