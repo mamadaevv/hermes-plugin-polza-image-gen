@@ -125,12 +125,16 @@ _MODELS: Dict[str, Dict[str, Any]] = {
         "speed": "~6s",
         "strengths": "Studio photorealism, crisp text",
         "price": "5 ₽ (1K) / 7 ₽ (2K)",
+        "category": "text-to-image + image-ref",
+        "features": "1K/2K, 7 ratios, до 8 реф.",
     },
     "black-forest-labs/flux.2-flex": {
         "display": "FLUX 2 Flex",
         "speed": "~4s",
         "strengths": "Fast, flexible, good quality",
         "price": "14 ₽ (1K) / 24 ₽ (2K)",
+        "category": "text-to-image + image-ref",
+        "features": "1K/2K, 7 ratios, до 8 реф.",
     },
     # ── Seedream ───────────────────────────────────────────────
     "bytedance/seedream-4.5": {
@@ -138,24 +142,32 @@ _MODELS: Dict[str, Dict[str, Any]] = {
         "speed": "~10s",
         "strengths": "Wide ratio support (1:1 to 21:9), Basic=2K, High=4K",
         "price": "5 ₽",
+        "category": "text-to-image + image-ref",
+        "features": "Quality (2K/4K), 8 ratios, до 14 реф.",
     },
     "bytedance/seedream-4": {
         "display": "Seedream 4",
         "speed": "~8s",
         "strengths": "Good quality, 1K/2K/4K, versatile ratios",
         "price": "3 ₽",
+        "category": "text-to-image + image-ref",
+        "features": "1K/2K/4K, Seed, 8 ratios, до 10 реф.",
     },
     "bytedance/seedream-5-lite": {
         "display": "Seedream 5 Lite",
         "speed": "~8s",
         "strengths": "Basic=2K, High=3K",
         "price": "4 ₽",
+        "category": "text-to-image + image-ref",
+        "features": "Quality (2K/3K), 8 ratios, до 10 реф.",
     },
     "bytedance/seedream": {
         "display": "Seedream 3.0",
         "speed": "~6s",
         "strengths": "Fast, reliable, cheapest Seedream",
         "price": "2.50 ₽",
+        "category": "text-to-image",
+        "features": "Seed, Guidance scale, 5 ratios",
     },
     # ── OpenAI ─────────────────────────────────────────────────
     "openai/gpt-image-1.5": {
@@ -163,18 +175,24 @@ _MODELS: Dict[str, Dict[str, Any]] = {
         "speed": "~15s",
         "strengths": "Strong prompt adherence, medium/high quality",
         "price": "3 ₽ (medium) / 16.50 ₽ (high)",
+        "category": "text-to-image + image-ref",
+        "features": "Quality (medium/high), 3 ratios, до 16 реф.",
     },
     "openai/gpt-5-image": {
         "display": "GPT-5 Image",
         "speed": "~15s",
-        "strengths": "Latest OpenAI image gen, text+image output",
+        "strengths": "Latest OpenAI — inpainting, multimodal, enhance",
         "price": "4.50 ₽",
+        "category": "multimodal + inpainting",
+        "features": "Mask/inpaint, Enhance, до 5 реф.",
     },
     "openai/gpt-5.4-image-2": {
         "display": "GPT-5.4 Image 2",
         "speed": "~15s",
         "strengths": "Multi-resolution (1K/2K/4K), wide ratio support",
         "price": "4 ₽ (1K) / 7 ₽ (2K) / 11 ₽ (4K)",
+        "category": "multimodal + image-ref",
+        "features": "1K/2K/4K, до 16 реф., 6 ratios",
     },
     # ── Google Gemini (Nano Banana) ─────────────────────────────
     "google/gemini-3.1-flash-image-preview": {
@@ -182,18 +200,24 @@ _MODELS: Dict[str, Dict[str, Any]] = {
         "speed": "~5s",
         "strengths": "Typographic precision, up to 4K, 4-6s latency",
         "price": "4.80 ₽ (1K) / 7.20 ₽ (2K) / 10.80 ₽ (4K)",
+        "category": "multimodal text+image",
+        "features": "1K/2K/4K, 11 ratios, до 14 реф.",
     },
     "google/gemini-3-pro-image-preview": {
         "display": "Nano Banana Pro (Gemini 3 Pro)",
         "speed": "~8s",
         "strengths": "Reasoning depth, world-aware photorealism, 1K/2K/4K",
         "price": "13.50 ₽ (1K/2K) / 18 ₽ (4K)",
+        "category": "multimodal text+image",
+        "features": "1K/2K/4K, 11 ratios, до 8 реф.",
     },
     "google/gemini-2.5-flash-image": {
         "display": "Nano Banana (Gemini 2.5 Flash)",
         "speed": "~4s",
         "strengths": "Fastest Gemini image gen, 30+ aspect ratios",
         "price": "2.90 ₽",
+        "category": "multimodal text+image",
+        "features": "10 ratios, до 8 реф.",
     },
     # ── Qwen ────────────────────────────────────────────────────
     "qwen/image-2": {
@@ -201,12 +225,16 @@ _MODELS: Dict[str, Dict[str, Any]] = {
         "speed": "~12s",
         "strengths": "LLM-based, complex scene understanding",
         "price": "4 ₽",
+        "category": "text-to-image + image-ref",
+        "features": "5 ratios, до 3 реф.",
     },
     "qwen/image": {
         "display": "Qwen Image",
         "speed": "~8s",
-        "strengths": "Price varies by aspect ratio (2.25–3 ₽)",
+        "strengths": "Img2img control (strength), guidance scale",
         "price": "2.25–3 ₽",
+        "category": "image-to-image",
+        "features": "Strength, Guidance, 1 реф., 5 ratios",
     },
     # ─── Other ───────────────────────────────────────────────────
     "yandex/yandex-art": {
@@ -214,18 +242,24 @@ _MODELS: Dict[str, Dict[str, Any]] = {
         "speed": "~10s",
         "strengths": "Artistic styles, painterly output",
         "price": "2.91 ₽",
+        "category": "text-to-image",
+        "features": "Seed, 7 ratios",
     },
     "x-ai/grok-imagine-image": {
         "display": "Grok Imagine (via Polza)",
         "speed": "~5s",
         "strengths": "Fast, 1:1/2:3/3:2 only",
         "price": "2.50 ₽",
+        "category": "text-to-image + image-ref",
+        "features": "1 реф., 3 ratios",
     },
     "tongyi-mai/z-image": {
         "display": "Z-Image (Tongyi)",
         "speed": "~5s",
         "strengths": "Cheapest model — 1.40 ₽ per image",
         "price": "1.40 ₽",
+        "category": "text-to-image",
+        "features": "5 ratios, без референсов",
     },
 }
 
@@ -365,6 +399,9 @@ class PolzaImageGenProvider(ImageGenProvider):
                 "display": meta.get("display", model_id),
                 "speed": meta.get("speed", ""),
                 "strengths": meta.get("strengths", ""),
+                "price": meta.get("price", ""),
+                "category": meta.get("category", ""),
+                "features": meta.get("features", ""),
             }
             for model_id, meta in _MODELS.items()
         ]
@@ -377,8 +414,8 @@ class PolzaImageGenProvider(ImageGenProvider):
             "name": "Polza AI",
             "badge": "paid",
             "tag": (
-                "FLUX 2 Pro, GPT Image 1.5, Seedream 4.5, Qwen Image 2, "
-                "Yandex Art, and more via polza.ai"
+                "17 models: text-to-image, image-ref, img2img, inpainting, "
+                "multimodal — FLUX 2, Seedream, GPT, Nano Banana, Qwen, Grok, Yandex"
             ),
             "env_vars": [
                 {
