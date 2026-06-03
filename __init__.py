@@ -348,6 +348,16 @@ def _resolve_polza_model(kwargs: Dict[str, Any]) -> str:
     # 3. Config file (image_gen.polza.model or image_gen.model)
     cfg = _load_polza_config()
     config_model = cfg.get("model") or cfg.get("default")
+    if not isinstance(config_model, str) or config_model not in _MODELS:
+        # Fallback to top-level image_gen.model (set by hermes tools)
+        try:
+            from hermes_cli.config import load_config
+            top_cfg = load_config()
+            top_section = top_cfg.get("image_gen") if isinstance(top_cfg, dict) else {}
+            if isinstance(top_section, dict):
+                config_model = top_section.get("model")
+        except Exception:
+            config_model = None
     if isinstance(config_model, str) and config_model in _MODELS:
         return config_model
 
