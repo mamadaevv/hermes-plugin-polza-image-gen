@@ -4,6 +4,21 @@
 
 > 🔗 **Зарегистрироваться в Polza AI:** https://polza.ai/?referral=2tzD86OTsh
 
+## Примеры генерации
+
+> Все примеры — реальные генерации из плагина. [Полная галерея →](./examples/)
+
+| Модель | Цена | Пример |
+|--------|------|--------|
+| **Seedream 4.5** ✅ | 5 ₽ | <img src="./examples/seedream-4.5-cat.jpg" width="160"> |
+| **FLUX 2 Pro** | 5 ₽ | <img src="./examples/flux-2-pro.jpg" width="160"> |
+| **GPT Image 1.5** | 3 ₽ | <img src="./examples/gpt-image-1.5.jpg" width="160"> |
+| **GPT-5.4 Image 2** | 4 ₽ | <img src="./examples/gpt-5.4-image-2.jpg" width="160"> |
+| **Nano Banana 2** | 4.80 ₽ | <img src="./examples/nano-banana-2.jpg" width="160"> |
+| **Z-Image** 💸 | 1.40 ₽ | <img src="./examples/z-image.jpg" width="160"> |
+| **Grok Imagine** | 2.50 ₽ | <img src="./examples/grok-imagine.jpg" width="160"> |
+| **Seedream 5 Lite** | 4 ₽ | <img src="./examples/seedream-5-lite.jpg" width="160"> |
+
 ## Категории моделей
 
 ### 🖼️ Text-to-Image (чистая генерация с нуля)
