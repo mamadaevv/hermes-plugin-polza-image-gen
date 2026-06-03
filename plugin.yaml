@@ -1,0 +1,7 @@
+name: polza
+version: 1.0.0
+description: "Polza AI image generation backend (FLUX 2 Pro/Flex, GPT Image 1.5, Seedream 4.5/4, Qwen Image 2, Yandex Art, and more). Async API with polling."
+author: Nik (mamadaevv)
+kind: backend
+requires_env:
+  - POLZA_API_KEY
