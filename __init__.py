@@ -320,6 +320,41 @@ def _polza_api(
         return 0, {"error": str(e)}
 
 
+def _load_polza_config() -> Dict[str, Any]:
+    """Read image_gen.polza section from config.yaml."""
+    try:
+        from hermes_cli.config import load_config
+        cfg = load_config()
+        section = cfg.get("image_gen") if isinstance(cfg, dict) else None
+        polza_section = section.get("polza") if isinstance(section, dict) else None
+        return polza_section if isinstance(polza_section, dict) else {}
+    except Exception as exc:
+        logger.debug("Could not load image_gen.polza config: %s", exc)
+        return {}
+
+
+def _resolve_polza_model(kwargs: Dict[str, Any]) -> str:
+    """Resolve model with precedence: env > kwarg > config > default."""
+    # 1. Environment override
+    env_model = os.environ.get("POLZA_IMAGE_MODEL")
+    if env_model and env_model in _MODELS:
+        return env_model
+
+    # 2. Passed as kwarg (from tool call)
+    kwarg_model = kwargs.get("model")
+    if isinstance(kwarg_model, str) and kwarg_model in _MODELS:
+        return kwarg_model
+
+    # 3. Config file (image_gen.polza.model or image_gen.model)
+    cfg = _load_polza_config()
+    config_model = cfg.get("model") or cfg.get("default")
+    if isinstance(config_model, str) and config_model in _MODELS:
+        return config_model
+
+    # 4. Fallback to DEFAULT_MODEL
+    return DEFAULT_MODEL
+
+
 def _resolve_polza_aspect_ratio(model_id: str, hermes_ratio: str) -> str:
     """Map Hermes aspect_ratio to Polza's ``aspectRatio`` parameter."""
     model_map = _MODEL_ASPECT_MAP.get(model_id)
@@ -455,13 +490,8 @@ class PolzaImageGenProvider(ImageGenProvider):
                 aspect_ratio=aspect,
             )
 
-        # Resolve model from config or env
-        model_id = (
-            os.environ.get("POLZA_IMAGE_MODEL")
-            or kwargs.get("model")
-            or self.default_model()
-            or DEFAULT_MODEL
-        )
+        # Resolve model: env var > kwarg > config > default
+        model_id = _resolve_polza_model(kwargs)
 
         # Build request payload with model-specific parameters
         polza_aspect = _resolve_polza_aspect_ratio(model_id, aspect)
