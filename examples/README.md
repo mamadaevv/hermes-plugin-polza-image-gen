@@ -1,97 +1,14 @@
-# Примеры генерации изображений
+# Примеры генерации
 
-Примеры сгенерированы через плагин `image_gen/polza` в Hermes Agent. Все картинки реальные — сгенерированы и оплачены через Polza AI.
+Все картинки сгенерированы через плагин `image_gen/polza` в Hermes Agent.
 
-## Seedream 4.5 (дефолтная)
-
-```
-Промпт: "a cute orange cat sitting on a windowsill, digital art"
-Аспект: square (1:1)
-Цена: 5 ₽
-```
-
-![Seedream 4.5](./seedream-4.5-cat.jpg)
-
----
-
-## GPT Image 1.5
-
-```
-Промпт: "a cute cat wearing a hat"
-Аспект: square (1:1)
-Цена: 3 ₽ (medium)
-```
-
-![GPT Image 1.5](./gpt-image-1.5.jpg)
-
----
-
-## GPT-5.4 Image 2
-
-```
-Промпт: "mountain lake"
-Аспект: landscape (16:9), 1K
-Цена: 4 ₽
-```
-
-![GPT-5.4 Image 2](./gpt-5.4-image-2.jpg)
-
----
-
-## FLUX 2 Pro
-
-```
-Промпт: "mountain landscape with cherry blossoms"
-Аспект: landscape (16:9), 1K
-Цена: 5 ₽
-```
-
-![FLUX 2 Pro](./flux-2-pro.jpg)
-
----
-
-## Nano Banana 2 (Gemini 3.1 Flash)
-
-```
-Промпт: "sunset beach"
-Аспект: portrait (9:16), 1K
-Цена: 4.80 ₽
-```
-
-![Nano Banana 2](./nano-banana-2.jpg)
-
----
-
-## Seedream 5 Lite
-
-```
-Промпт: "forest path"
-Аспект: square (1:1)
-Цена: 4 ₽
-```
-
-![Seedream 5 Lite](./seedream-5-lite.jpg)
-
----
-
-## Z-Image (Tongyi) — самая дешёвая
-
-```
-Промпт: "mountain lake"
-Аспект: square (1:1)
-Цена: 1.40 ₽
-```
-
-![Z-Image](./z-image.jpg)
-
----
-
-## Grok Imagine (через Polza)
-
-```
-Промпт: "cute cat"
-Аспект: landscape (3:2)
-Цена: 2.50 ₽
-```
-
-![Grok Imagine](./grok-imagine.jpg)
+| Модель | Промпт | Аспект | Цена | Результат |
+|--------|--------|--------|------|-----------|
+| **Seedream 4.5** ✅ | orange cat on windowsill, digital art | square (1:1) | 5 ₽ | <img src="./seedream-4.5-cat.jpg" width="200"> |
+| **FLUX 2 Pro** | mountain landscape with cherry blossoms | landscape 16:9, 1K | 5 ₽ | <img src="./flux-2-pro.jpg" width="200"> |
+| **GPT Image 1.5** | cute cat wearing a hat | square (1:1), medium | 3 ₽ | <img src="./gpt-image-1.5.jpg" width="200"> |
+| **GPT-5.4 Image 2** | mountain lake | landscape 16:9, 1K | 4 ₽ | <img src="./gpt-5.4-image-2.jpg" width="200"> |
+| **Nano Banana 2** (Gemini 3.1 Flash) | sunset beach | portrait 9:16, 1K | 4.80 ₽ | <img src="./nano-banana-2.jpg" width="200"> |
+| **Seedream 5 Lite** | forest path | square (1:1) | 4 ₽ | <img src="./seedream-5-lite.jpg" width="200"> |
+| **Z-Image** 💸 | mountain lake | square (1:1) | **1.40 ₽** | <img src="./z-image.jpg" width="200"> |
+| **Grok Imagine** | cute cat | landscape 3:2 | 2.50 ₽ | <img src="./grok-imagine.jpg" width="200"> |
