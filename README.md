@@ -19,7 +19,89 @@
 | **Grok Imagine** | 2.50 ₽ | <img src="./examples/grok-imagine-image_gen_2173430933789216769.jpg" width="160"> |
 | **Seedream 5 Lite** | 4 ₽ | <img src="./examples/seedream-5-lite_gen_2173431273658519553.jpg" width="160"> |
 
-## Категории моделей
+## Установка
+
+### Быстрая (через hermes plugins install)
+
+```bash
+# 1. Установить плагин одной командой
+hermes plugins install mamadaevv/hermes-plugin-polza-image-gen --enable
+
+# 2. Добавить API ключ в .env
+echo "POLZA_API_KEY=*** >> ~/.hermes/.env
+
+# 3. Готово! Следующая генерация пойдёт через Polza AI
+```
+
+### Ручная
+
+```bash
+# 1. Создать директорию
+mkdir -p ~/.hermes/plugins/image_gen/polza/
+
+# 2. Скачать файлы
+curl -Lo ~/.hermes/plugins/image_gen/polza/__init__.py \
+  https://raw.githubusercontent.com/mamadaevv/hermes-plugin-polza-image-gen/main/__init__.py
+curl -Lo ~/.hermes/plugins/image_gen/polza/plugin.yaml \
+  https://raw.githubusercontent.com/mamadaevv/hermes-plugin-polza-image-gen/main/plugin.yaml
+
+# 3. Добавить API ключ
+echo "POLZA_API_KEY=*** >> ~/.hermes/.env
+
+# 4. Включить в конфиге
+cat >> ~/.hermes/config.yaml << 'EOF'
+plugins:
+  enabled:
+    - image_gen/polza
+EOF
+```
+
+## Использование
+
+После установки просто попроси сгенерировать изображение. По умолчанию используется **Seedream 4.5**.
+
+### Выбор модели в разговоре
+
+Можешь прямо в запросе указать какую модель использовать — агент сам переключится:
+
+> «сгенерируй горный пейзаж в Nano Banana 2»
+> «сделай фотореалистичного кота на FLUX 2 Pro»
+
+Или попросить сменить дефолтную модель на время:
+
+> «поставь Z-Image default, пока не отменю»
+
+Модель переключается без рестарта. Приоритет выбора:
+
+```
+1. POLZA_IMAGE_MODEL (env var)     — временная смена через терминал
+2. Модель в запросе                — ты сказал какую, я сделал
+3. image_gen.polza.model (config)  — выбор через hermes tools
+4. Seedream 4.5                    — встроенный дефолт
+```
+
+### Выбор модели через hermes tools
+
+```bash
+# Открыть меню выбора модели
+hermes tools
+# → Image Generation → Polza AI → выбрать модель
+
+# Или напрямую в конфиг
+hermes config set image_gen.polza.model tongyi-mai/z-image
+```
+
+### Список всех моделей
+
+| Категория | Модели |
+|-----------|--------|
+| **🖼️ Text-to-Image** | Z-Image (1.40 ₽), Seedream 3.0 (2.50 ₽), Yandex Art (2.91 ₽) |
+| **🎨 Text-to-Image + референсы** | FLUX 2 Pro (5 ₽), Seedream 4.5 (5 ₽), GPT Image 1.5 (3 ₽), Qwen Image 2 (4 ₽), Grok Imagine (2.50 ₽) |
+| **🎛️ Image-to-Image** | Qwen Image (2.25–3 ₽) — strength + guidance |
+| **🖌️ Inpainting** | GPT-5 Image (4.50 ₽) — маски, enhance |
+| **🌐 Multimodal** | GPT-5.4 Image 2 (4 ₽), Nano Banana (2.90 ₽), Nano Banana 2 (4.80 ₽), Nano Banana Pro (13.50 ₽) |
+
+## Категории моделей (полный список)
 
 ### 🖼️ Text-to-Image (чистая генерация с нуля)
 | Модель | Цена (₽) | Особенности |
@@ -57,31 +139,6 @@
 | **Nano Banana (Gemini 2.5 Flash)** | 2.90 ₽ | 10 ratios, быстрый |
 | **Nano Banana 2 (Gemini 3.1 Flash)** | 4.80 / 7.20 / 10.80 ₽ (4K) | 11 ratios, типографика |
 | **Nano Banana Pro (Gemini 3 Pro)** | 13.50 / 18 ₽ (4K) 🏆 | Топ-качество |
-
-## Установка
-
-```bash
-# 1. Скопировать плагин
-mkdir -p ~/.hermes/plugins/image_gen/polza/
-# (положить сюда __init__.py и plugin.yaml)
-
-# 2. Добавить API ключ в ~/.hermes/.env
-echo "POLZA_API_KEY=*** >> ~/.hermes/.env
-
-# 3. Включить плагин в ~/.hermes/config.yaml
-cat >> ~/.hermes/config.yaml << 'EOF'
-plugins:
-  enabled:
-    - image_gen/polza
-EOF
-
-# 4. Перезапустить Hermes
-# В CLI: exit и заново
-# В gateway: /restart
-
-# 5. Выбрать модель через hermes tools
-hermes tools
-```
 
 ## Получение API ключа
 
