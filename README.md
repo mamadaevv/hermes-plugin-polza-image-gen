@@ -1,6 +1,8 @@
 # Hermes Agent — Polza AI Image Generation Plugin
 
-Плагин для генерации изображений через [Polza AI](https://polza.ai) в Hermes Agent. Поддерживает **17 моделей** различных категорий.
+Плагин для генерации изображений через [Polza AI](https://polza.ai/?referral=2tzD86OTsh) в Hermes Agent. Поддерживает **17 моделей** различных категорий.
+
+> 🔗 **Зарегистрироваться в Polza AI:** https://polza.ai/?referral=2tzD86OTsh
 
 ## Категории моделей
 
@@ -68,7 +70,8 @@ hermes tools
 
 ## Получение API ключа
 
-**https://polza.ai** → API ключи
+1. Зарегистрироваться: **https://polza.ai/?referral=2tzD86OTsh**
+2. Перейти в настройки → API ключи
 
 ## Лицензия
 
