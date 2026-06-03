@@ -53,78 +53,179 @@ _DEFAULT_ASPECT_MAP: Dict[str, str] = {
     "portrait": "9:16",
 }
 
-# Some models don't support 16:9 / 9:16 — fall back to 3:2 / 2:3.
+# Models with limited aspect ratio support — need non-standard mapping.
 _MODEL_ASPECT_MAP: Dict[str, Dict[str, str]] = {
     "openai/gpt-image-1.5": {
+        "landscape": "3:2",  # no 16:9 support
+        "square": "1:1",
+        "portrait": "2:3",
+    },
+    "openai/gpt-5-image": {
         "landscape": "3:2",
         "square": "1:1",
         "portrait": "2:3",
     },
-    "qwen/image-2": {
-        "landscape": "3:2",
-        "square": "1:1",
-        "portrait": "2:3",
-    },
-    "qwen/image": {
+    "x-ai/grok-imagine-image": {
         "landscape": "3:2",
         "square": "1:1",
         "portrait": "2:3",
     },
 }
 
-# Models that require an explicit ``resolution`` parameter.
-_MODELS_NEEDING_RESOLUTION = {
-    "black-forest-labs/flux.2-pro",
-    "black-forest-labs/flux.2-flex",
+# Models that support ``image_resolution`` (1K / 2K / 4K).
+_MODELS_WITH_RESOLUTION: Dict[str, str] = {
+    "black-forest-labs/flux.2-pro": "1K",
+    "black-forest-labs/flux.2-flex": "1K",
+    "bytedance/seedream-4": "1K",
+    "openai/gpt-5.4-image-2": "1K",
+    "google/gemini-3.1-flash-image-preview": "1K",
+    "google/gemini-3-pro-image-preview": "1K",
+}
+
+# Models that support ``quality`` parameter (basic / high).
+_MODELS_WITH_QUALITY: Dict[str, str] = {
+    "bytedance/seedream-4.5": "basic",
+    "bytedance/seedream-5-lite": "basic",
+    "openai/gpt-image-1.5": "medium",
+}
+
+# Models that support ``output_format``.
+_MODELS_WITH_OUTPUT_FORMAT = {
+    "qwen/image", "qwen/image-2",
+    "google/gemini-3.1-flash-image-preview",
+    "google/gemini-3-pro-image-preview",
+    "google/gemini-2.5-flash-image",
+}
+
+# Price descriptions for each model (in RUB, from Polza API).
+_MODEL_PRICES: Dict[str, str] = {
+    "black-forest-labs/flux.2-pro": "5 ₽ (1K) / 7 ₽ (2K)",
+    "black-forest-labs/flux.2-flex": "14 ₽ (1K) / 24 ₽ (2K)",
+    "bytedance/seedream-4.5": "5 ₽",
+    "bytedance/seedream-4": "3 ₽",
+    "bytedance/seedream": "2.50 ₽",
+    "bytedance/seedream-5-lite": "4 ₽",
+    "openai/gpt-image-1.5": "3 ₽ (medium) / 16.50 ₽ (high)",
+    "openai/gpt-5-image": "4.50 ₽",
+    "openai/gpt-5.4-image-2": "4 ₽ (1K) / 7 ₽ (2K) / 11 ₽ (4K)",
+    "qwen/image-2": "4 ₽",
+    "qwen/image": "2.25–3 ₽",
+    "yandex/yandex-art": "2.91 ₽",
+    "x-ai/grok-imagine-image": "2.50 ₽",
+    "tongyi-mai/z-image": "1.40 ₽",
+    "google/gemini-2.5-flash-image": "2.90 ₽",
+    "google/gemini-3.1-flash-image-preview": "4.80 ₽ (1K) / 7.20 ₽ (2K) / 10.80 ₽ (4K)",
+    "google/gemini-3-pro-image-preview": "13.50 ₽ (1K/2K) / 18 ₽ (4K)",
 }
 
 _MODELS: Dict[str, Dict[str, Any]] = {
+    # ── FLUX ──────────────────────────────────────────────────
     "black-forest-labs/flux.2-pro": {
         "display": "FLUX 2 Pro",
         "speed": "~6s",
         "strengths": "Studio photorealism, crisp text",
-        "needs_resolution": True,
+        "price": "5 ₽ (1K) / 7 ₽ (2K)",
     },
     "black-forest-labs/flux.2-flex": {
         "display": "FLUX 2 Flex",
         "speed": "~4s",
         "strengths": "Fast, flexible, good quality",
-        "needs_resolution": True,
+        "price": "14 ₽ (1K) / 24 ₽ (2K)",
     },
+    # ── Seedream ───────────────────────────────────────────────
     "bytedance/seedream-4.5": {
         "display": "Seedream 4.5",
         "speed": "~10s",
-        "strengths": "High quality, wide ratio support (1:1 to 21:9)",
+        "strengths": "Wide ratio support (1:1 to 21:9), Basic=2K, High=4K",
+        "price": "5 ₽",
     },
     "bytedance/seedream-4": {
         "display": "Seedream 4",
         "speed": "~8s",
-        "strengths": "Good quality, versatile ratios",
+        "strengths": "Good quality, 1K/2K/4K, versatile ratios",
+        "price": "3 ₽",
+    },
+    "bytedance/seedream-5-lite": {
+        "display": "Seedream 5 Lite",
+        "speed": "~8s",
+        "strengths": "Basic=2K, High=3K",
+        "price": "4 ₽",
     },
     "bytedance/seedream": {
-        "display": "Seedream",
+        "display": "Seedream 3.0",
         "speed": "~6s",
-        "strengths": "Fast, reliable",
+        "strengths": "Fast, reliable, cheapest Seedream",
+        "price": "2.50 ₽",
     },
+    # ── OpenAI ─────────────────────────────────────────────────
     "openai/gpt-image-1.5": {
         "display": "GPT Image 1.5",
         "speed": "~15s",
-        "strengths": "Strong prompt adherence, OpenAI-compatible",
+        "strengths": "Strong prompt adherence, medium/high quality",
+        "price": "3 ₽ (medium) / 16.50 ₽ (high)",
     },
+    "openai/gpt-5-image": {
+        "display": "GPT-5 Image",
+        "speed": "~15s",
+        "strengths": "Latest OpenAI image gen, text+image output",
+        "price": "4.50 ₽",
+    },
+    "openai/gpt-5.4-image-2": {
+        "display": "GPT-5.4 Image 2",
+        "speed": "~15s",
+        "strengths": "Multi-resolution (1K/2K/4K), wide ratio support",
+        "price": "4 ₽ (1K) / 7 ₽ (2K) / 11 ₽ (4K)",
+    },
+    # ── Google Gemini (Nano Banana) ─────────────────────────────
+    "google/gemini-3.1-flash-image-preview": {
+        "display": "Nano Banana 2 (Gemini 3.1 Flash)",
+        "speed": "~5s",
+        "strengths": "Typographic precision, up to 4K, 4-6s latency",
+        "price": "4.80 ₽ (1K) / 7.20 ₽ (2K) / 10.80 ₽ (4K)",
+    },
+    "google/gemini-3-pro-image-preview": {
+        "display": "Nano Banana Pro (Gemini 3 Pro)",
+        "speed": "~8s",
+        "strengths": "Reasoning depth, world-aware photorealism, 1K/2K/4K",
+        "price": "13.50 ₽ (1K/2K) / 18 ₽ (4K)",
+    },
+    "google/gemini-2.5-flash-image": {
+        "display": "Nano Banana (Gemini 2.5 Flash)",
+        "speed": "~4s",
+        "strengths": "Fastest Gemini image gen, 30+ aspect ratios",
+        "price": "2.90 ₽",
+    },
+    # ── Qwen ────────────────────────────────────────────────────
     "qwen/image-2": {
         "display": "Qwen Image 2",
         "speed": "~12s",
         "strengths": "LLM-based, complex scene understanding",
+        "price": "4 ₽",
     },
     "qwen/image": {
         "display": "Qwen Image",
         "speed": "~8s",
-        "strengths": "Fast LLM-based image generation",
+        "strengths": "Price varies by aspect ratio (2.25–3 ₽)",
+        "price": "2.25–3 ₽",
     },
+    # ─── Other ───────────────────────────────────────────────────
     "yandex/yandex-art": {
         "display": "Yandex Art",
         "speed": "~10s",
         "strengths": "Artistic styles, painterly output",
+        "price": "2.91 ₽",
+    },
+    "x-ai/grok-imagine-image": {
+        "display": "Grok Imagine (via Polza)",
+        "speed": "~5s",
+        "strengths": "Fast, 1:1/2:3/3:2 only",
+        "price": "2.50 ₽",
+    },
+    "tongyi-mai/z-image": {
+        "display": "Z-Image (Tongyi)",
+        "speed": "~5s",
+        "strengths": "Cheapest model — 1.40 ₽ per image",
+        "price": "1.40 ₽",
     },
 }
 
@@ -325,7 +426,7 @@ class PolzaImageGenProvider(ImageGenProvider):
             or DEFAULT_MODEL
         )
 
-        # Build request payload
+        # Build request payload with model-specific parameters
         polza_aspect = _resolve_polza_aspect_ratio(model_id, aspect)
         payload: Dict[str, Any] = {
             "model": model_id,
@@ -334,9 +435,17 @@ class PolzaImageGenProvider(ImageGenProvider):
             "aspectRatio": polza_aspect,
         }
 
-        # Some models (FLUX) also need an explicit resolution
-        if model_id in _MODELS_NEEDING_RESOLUTION:
-            payload["resolution"] = "1K"
+        # Models that support ``image_resolution`` (1K / 2K / 4K)
+        if model_id in _MODELS_WITH_RESOLUTION:
+            payload["image_resolution"] = _MODELS_WITH_RESOLUTION[model_id]
+
+        # Models that support ``quality`` (basic / high / medium)
+        if model_id in _MODELS_WITH_QUALITY:
+            payload["quality"] = _MODELS_WITH_QUALITY[model_id]
+
+        # Models that support ``output_format``
+        if model_id in _MODELS_WITH_OUTPUT_FORMAT:
+            payload["output_format"] = "jpeg"
 
         logger.debug(
             "Polza image gen: model=%s aspect=%s payload=%s",
